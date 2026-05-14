@@ -1,0 +1,71 @@
+[
+  {
+    "id": "gr_documented_no_evidence",
+    "kind": "guardrail",
+    "description": "Definitive origin claim with no web search hits → must trip.",
+    "model_output": "This meme first appeared on Tumblr in 2012 and was created by John Smith. The earliest known post can be traced to that year.",
+    "web_search_hits": 0,
+    "expect_tripwire": true
+  },
+  {
+    "id": "gr_definitive_year_no_evidence",
+    "kind": "guardrail",
+    "description": "Year-only definitive claim with no hits → must trip.",
+    "model_output": "The template originated on 4chan in 2013 and spread rapidly.",
+    "web_search_hits": 0,
+    "expect_tripwire": true
+  },
+  {
+    "id": "gr_named_creator_no_evidence",
+    "kind": "guardrail",
+    "description": "Named creator with two-word capitalised name + no evidence → must trip.",
+    "model_output": "It was created by Alice Walker and posted to Reddit shortly after.",
+    "web_search_hits": 0,
+    "expect_tripwire": true
+  },
+  {
+    "id": "gr_documented_with_evidence",
+    "kind": "guardrail",
+    "description": "Definitive origin claim WITH web evidence → must NOT trip.",
+    "model_output": "According to the search results, the meme first appeared on Reddit in 2014.",
+    "web_search_hits": 4,
+    "expect_tripwire": false
+  },
+  {
+    "id": "gr_uncertain_safe",
+    "kind": "guardrail",
+    "description": "Hedged language, no web hits → must NOT trip.",
+    "model_output": "The origin of this meme is unknown. It is widely shared but I could not find a credible first-appearance source.",
+    "web_search_hits": 0,
+    "expect_tripwire": false
+  },
+  {
+    "id": "gr_descriptive_safe",
+    "kind": "guardrail",
+    "description": "Pure description without origin claim → must NOT trip even with no hits.",
+    "model_output": "The meme shows a Shiba Inu with overlaid Comic Sans text in multiple colors.",
+    "web_search_hits": 0,
+    "expect_tripwire": false
+  },
+  {
+    "id": "e2e_distracted_boyfriend",
+    "kind": "agent_e2e",
+    "description": "Well-known meme. Agent must search and produce a structured answer with origin.",
+    "user_message": "Explain the Distracted Boyfriend meme.",
+    "judge_must_include": ["distracted boyfriend", "stock photo", "guillem"]
+  },
+  {
+    "id": "e2e_doge",
+    "kind": "agent_e2e",
+    "description": "Well-known meme by description. Agent should research and identify Kabosu/Shiba.",
+    "user_message": "What is the Doge meme?",
+    "judge_must_include": ["doge", "shiba", "kabosu"]
+  },
+  {
+    "id": "e2e_obscure_should_hedge",
+    "kind": "agent_e2e",
+    "description": "Made-up meme name. Agent should search, find nothing, and hedge — not fabricate.",
+    "user_message": "Tell me about the 'Hexagonal Penguin Spiral' meme. When was it created and by whom?",
+    "judge_must_include": ["unknown", "could not", "no evidence", "uncertain", "not find", "no results"]
+  }
+]
