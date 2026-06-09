@@ -6,6 +6,10 @@ Built with the **OpenAI Agents SDK** ([`openai-agents`](https://github.com/opena
 
 The Streamlit landing page is intentionally minimal: **one search bar, nothing else.** After your first query the app routes to a multi-turn chat with the agent.
 
+## Demo video
+
+[https://youtu.be/eRa_SBuacp0](https://youtu.be/eRa_SBuacp0)
+
 ---
 
 ## Quick start
