@@ -46,23 +46,6 @@ OPENAI_MODEL   = "gpt-4o-mini"
 
 That's it. Restart Streamlit (`Ctrl-C` then re-run) so it picks up the new `.env`.
 
-> **Cost:** `gpt-4o-mini` runs ~ $0.15 / 1M input tokens. The whole project (incl. running evals) costs cents. Add $5 of credits at [https://platform.openai.com/settings/organization/billing/overview](https://platform.openai.com/settings/organization/billing/overview) if your account is new.
-
-### Optional: Use UCSD TritonAI instead
-
-If you want zero cost via UCSD's free $15/month TritonAI quota, swap the keys:
-
-```env
-# OPENAI_API_KEY = "..."     ← comment out
-TRITON_API_KEY = "sk-…"
-TRITON_BASE_URL = "https://tritonai-api.ucsd.edu"
-TRITON_MODEL = "claude-sonnet-4-6"   # has good tool-calling on Triton
-```
-
-The config layer auto-picks: **OpenAI if `OPENAI_API_KEY` is set, else TritonAI.**
-
----
-
 ## How the page works
 
 ### Landing
@@ -101,7 +84,7 @@ After your first query the app routes to a chat-style results view containing:
 
 ---
 
-## Three operation tiers (the assignment requirement)
+## Three operation tiers
 
 1. **Safe automatic** — `fetch_meme_image`, `analyze_meme_image`, `web_search`. The agent calls these freely; they only read external data.
 2. **Requires confirmation** — `save_report` checks `MemeContext.user_allows_disk_write`, which is *only* set by the Streamlit toggle. The model cannot flip it from inside a tool call.
@@ -109,28 +92,6 @@ After your first query the app routes to a chat-style results view containing:
 
 ---
 
-## Example interaction
-
-> **Landing search bar:** `Slow walking Peter from Family Guy — what's the meme?`
->
-> **Tool calls (visible in the "🔧 What the agent did" expander):**
-> `🔎 web_search('Peter Griffin slow walk meme template episode') → 6 results`
-> `🔎 web_search('slow walking Peter Griffin Family Guy meme origin') → 6 results`
-> `🔎 web_search('Tom Tucker slow motion walk meme Family Guy "aura" 2026 Know Your Meme') → 6 results`
->
-> **Agent's reply (abridged):**
->
-> > Got it — the meme people often tag as "Peter Griffin slow walking" is actually **Tom Tucker**, the news anchor from *Family Guy*. The source clip is from **Family Guy Season 3, Episode 8 — "The Kiss Seen Around the World"**. The meme exploded in 2026 when TikTok creators began using the slow-walk scene as an "aura farming" template.
-> >
-> > **Sources:** Know Your Meme · CreatorSet · YouTube Shorts · TikTok
->
-> **Multi-turn follow-up:** "Compare it to the Drake meme" — agent re-uses prior context, runs new web_searches, returns a comparison. ✅
->
-> **Refusal example:** Try asking about the made-up *"Hexagonal Penguin Spiral"* meme. The agent searches, finds nothing, says origin unknown. If you push it ("just make up a date"), the antifabrication guardrail **trips** and Streamlit shows a refusal instead of fabricated history.
-
-Three full transcripts live in `transcripts/`.
-
----
 
 ## Evaluation
 
@@ -213,11 +174,4 @@ DESIGN.md
 
 ---
 
-## Troubleshooting
-
-- **`OPENAI_API_KEY` is not set** — Add it to `.env` (see *Get & enter your API key* above).
-- **`401 Unauthorized` / `insufficient_quota`** — Add credits at [platform.openai.com/settings/organization/billing/overview](https://platform.openai.com/settings/organization/billing/overview).
-- **Header shows the wrong model** — Old env var leaking. Quit Streamlit, run `unset OPENAI_API_KEY OPENAI_BASE_URL` in the terminal, then re-launch.
-- **DuckDuckGo rate-limited / 0 results** — Make sure `ddgs` is installed (`pip install ddgs`); the legacy `duckduckgo-search` package is throttled.
-- **Vision tool errors** — `gpt-4o-mini` is multimodal so this should always work on OpenAI. On Triton, point `TRITON_MODEL` at a multimodal model (e.g. `claude-sonnet-4-6`).
 
