@@ -105,8 +105,6 @@ Save it now.
   You can drive your demoing laptop as the project author,
   but take the prompts from them.
 
-**Other stuff reviewers can try:** The 5 prompts listed above. Good ones for testing guardrails are the fake meme (#4) and trying to save without the toggle (#5).
-
 The project author should fill in the sections below in the same format as
 above, during the session.
 
@@ -123,12 +121,7 @@ above, during the session.
 
 #### Reviewer 2
 
-**Reviewer name:**
-
-- What was the task?
-- What was the end result (what did the agent accomplish)?
-- Which tools did the agent call?
-- What happened when you asked for an action that is not automatically allowed by the guardrails?
+_Copy the structure above for additional reviewers._
 
 ---
 
@@ -137,5 +130,3 @@ above, during the session.
 After all reviewers have interacted with the agent, discuss and answer the following:
 
 **Guardrail comparison:** _Across the test environments and reviewer prompts, how did the guardrails behave? Were there cases where the same guardrail blocked an action in one environment but allowed it in another? Were there actions that surprised reviewers (either blocked unexpectedly, or allowed when they expected a block)?_
-
-_[fill in after review session]_
